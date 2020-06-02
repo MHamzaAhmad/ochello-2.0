@@ -7,8 +7,8 @@ public class RopeScript : MonoBehaviour
     public Vector3 hookDest;
     public Vector3 playerPos;
     public GameObject hook;
-    private float speed = 2f;
-    private float segLength = 0.25f;
+    private float speed = 1f;
+    private float segLength = 0.35f;
     public GameObject node;
     List<GameObject> nodes = new List<GameObject>();
     private GameObject lastNode;
@@ -97,7 +97,7 @@ public class RopeScript : MonoBehaviour
         
         GameObject go = (GameObject) Instantiate(node, pos2Create, Quaternion.identity);
         go.transform.SetParent(this.transform);
-        go.GetComponent<HingeJoint>().connectedBody = lastNode.GetComponent<Rigidbody>();
+        go.GetComponent<SpringJoint>().connectedBody = lastNode.GetComponent<Rigidbody>();
         nodes.Add(go);
         lastNode = go;
     }
