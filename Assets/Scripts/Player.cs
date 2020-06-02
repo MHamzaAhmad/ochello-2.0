@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     {
         startFindingHook();
         hookFindingRoutine();
+        if (Input.GetMouseButtonDown(1))
+        {
+            this.GetComponent<Rigidbody>().AddForce(4f, 0f, 0f);
+        }
     }
 
     private void hookFindingRoutine()
@@ -37,6 +41,7 @@ public class Player : MonoBehaviour
                     Debug.DrawLine(ray.origin, hitInfo.transform.position, Color.yellow);
                     ropeHook.GetComponent<RopeScript>().hookDest = hitInfo.transform.position;
                     ropeHook.GetComponent<RopeScript>().playerPos = this.transform.position;
+                    ropeHook.GetComponent<RopeScript>().hook = hitInfo.transform.gameObject;
                     throwHook();
                 }
                 else
@@ -71,4 +76,5 @@ public class Player : MonoBehaviour
     {
         this.GetComponent<Rigidbody>().AddForce(3f, 0f, 0f);
     }
+
 }

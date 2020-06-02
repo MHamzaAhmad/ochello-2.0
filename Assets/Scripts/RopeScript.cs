@@ -6,17 +6,19 @@ public class RopeScript : MonoBehaviour
 {
     public Vector3 hookDest;
     public Vector3 playerPos;
-    private float speed = 0.3f;
-    private float segLength = 0.4f;
+    public GameObject hook;
+    private float speed = 1f;
+    private float segLength = 0.25f;
     public GameObject node;
     List<GameObject> nodes = new List<GameObject>();
     private GameObject lastNode;
+    private bool nodeCreation = false;
 
     private LineRenderer lineRenderer;
     private float lineWidth = 0.15f;
 
     private GameObject player;
-    private bool playerConnected = true;
+    private bool playerConnected = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +37,13 @@ public class RopeScript : MonoBehaviour
     {
         hookThrower();
         renderLine();
+        
     }
 
     private void FixedUpdate()
     {
         //hookThrower();
+        constraints();
     }
 
     private void hookThrower()
@@ -51,24 +55,30 @@ public class RopeScript : MonoBehaviour
             if (Vector3.Distance(playerPos, lastNode.transform.position) > segLength)
             {
                 createNode();
-                playerConnected = false;
+                //playerConnected = false;
             }
         }
-        else if (Vector3.Distance(playerPos, lastNode.transform.position) > segLength)
+        else //if (Vector3.Distance(playerPos, lastNode.transform.position) > segLength)
         {
             //while (Vector3.Distance(playerPos, lastNode.transform.position) > segLength)
             //{
             //    createNode();
             //}
+            if (playerConnected == false)
+            {
+                playerConnected = true;
+                Debug.Log("player connected");
+                while (Vector3.Distance(playerPos, lastNode.transform.position) > segLength)
+                {
+                    createNode();
+                    Debug.Log("node created in while");
+                }
+                //lastNode.GetComponent<HingeJoint>().connectedBody = player.GetComponent<Rigidbody>();
+                player.GetComponent<HingeJoint>().connectedBody = lastNode.GetComponent<Rigidbody>();
+                //lastNode.GetComponent<HingeJoint>().maxDistance = 0;
+                this.GetComponent<HingeJoint>().connectedBody = hook.GetComponent<Rigidbody>();
+            }
         }
-        if (playerConnected == false)
-        {
-            playerConnected = true;
-            Debug.Log("player connected");
-            //player.GetComponent<SpringJoint>().connectedBody = lastNode.GetComponent<Rigidbody>();
-            lastNode.GetComponent<SpringJoint>().connectedBody = player.GetComponent<Rigidbody>();
-        }
-        //canSwing = true;
     }
 
     private void createNode()
@@ -77,10 +87,10 @@ public class RopeScript : MonoBehaviour
         pos2Create.Normalize();
         pos2Create *= segLength;
         pos2Create += lastNode.transform.position;
-
+        
         GameObject go = (GameObject) Instantiate(node, pos2Create, Quaternion.identity);
         go.transform.SetParent(this.transform);
-        go.GetComponent<SpringJoint>().connectedBody = lastNode.GetComponent<Rigidbody>();
+        go.GetComponent<HingeJoint>().connectedBody = lastNode.GetComponent<Rigidbody>();
         nodes.Add(go);
         lastNode = go;
     }
@@ -97,5 +107,42 @@ public class RopeScript : MonoBehaviour
         }
     }
 
-    
+    private void constraints()
+    {
+        //for (int i = 0; i < nodes.Count - 1; i++)
+        //{
+        //    GameObject firstseg = nodes[i];
+        //    GameObject secondseg = nodes[i + 1];
+
+        //    float dist = (firstseg.transform.position - secondseg.transform.position).magnitude;
+        //    float error = Mathf.Abs(dist - this.segLength);
+        //    Vector3 changedir = Vector3.zero;
+
+        //    if (dist > segLength)
+        //    {
+        //        changedir = (firstseg.transform.position - secondseg.transform.position).normalized;
+        //    }
+        //    else if (dist < segLength)
+        //    {
+        //        changedir = (secondseg.transform.position - firstseg.transform.position).normalized;
+        //    }
+
+        //    Vector3 changeamount = changedir * error;
+
+        //    if (i != 0)
+        //    {
+        //        firstseg.transform.position -= changeamount * error;
+        //        this.nodes[i] = firstseg;
+        //        secondseg.transform.position += changeamount * 0.5f;
+        //        this.nodes[i + 1] = secondseg;
+        //    }
+        //    else
+        //    {
+        //        secondseg.transform.position += changeamount;
+        //        this.nodes[i + 1] = secondseg;
+        //    }
+        //}
+
+        nodes[nodes.Count - 1].transform.position = player.transform.position;
+    }
 }

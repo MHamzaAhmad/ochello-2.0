@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3156352356488497089}
   - component: {fileID: 3156352356488497150}
   - component: {fileID: -4479157235819742786}
+  - component: {fileID: 7172991610319902787}
   m_Layer: 0
   m_Name: RopeHook
   m_TagString: Untagged
@@ -48,8 +49,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 48
+  m_CollisionDetection: 3
 --- !u!135 &3156352356488497089
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -76,10 +77,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookDest: {x: 0.02, y: 4.43, z: 0}
-  playerPos: {x: -4.39, y: 1.69, z: 0}
+  playerPos: {x: -3.38, y: 1.06, z: 0}
+  hook: {fileID: 5673706806916672159, guid: 9ddbc3d6eb8623e41b78475ca41f2cd7, type: 3}
   node: {fileID: 2595816818214671928, guid: dce17d9848e045b4796d55611ac36372, type: 3}
-  canSwing: 0
-  player: {fileID: 6115935973887385587, guid: 23cffc76234f55f49abc287017ac22e2, type: 3}
 --- !u!120 &-4479157235819742786
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -177,3 +177,38 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!59 &7172991610319902787
+HingeJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3156352356488497090}
+  m_ConnectedBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 1, z: 0}
+  m_Axis: {x: 1, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_UseSpring: 0
+  m_Spring:
+    spring: 0
+    damper: 0
+    targetPosition: 0
+  m_UseMotor: 0
+  m_Motor:
+    targetVelocity: 0
+    force: 0
+    freeSpin: 0
+  m_UseLimits: 0
+  m_Limits:
+    min: 0
+    max: 0
+    bounciness: 0
+    bounceMinVelocity: 0.2
+    contactDistance: 0
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
