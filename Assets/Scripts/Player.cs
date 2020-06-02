@@ -35,23 +35,26 @@ public class Player : MonoBehaviour
            ray = new Ray(eyes.transform.position, eyes.transform.right * 14);
            if (Physics.Raycast(ray, out hitInfo, 100))
            {
-                if (hitInfo.transform.tag == "Hook")
+                Debug.DrawLine(ray.origin, eyes.transform.right * 14, Color.red);
+                if (hitInfo.collider.tag == "Hook")
                 {
                     findHook = false;
                     Debug.DrawLine(ray.origin, hitInfo.transform.position, Color.yellow);
-                    ropeHook.GetComponent<RopeScript>().hookDest = hitInfo.transform.position;
-                    ropeHook.GetComponent<RopeScript>().playerPos = this.transform.position;
+                    ropeHook.GetComponent<RopeScript>().hookDest = (Vector2) hitInfo.transform.position;
+                    ropeHook.GetComponent<RopeScript>().playerPos = (Vector2)this.transform.position;
                     ropeHook.GetComponent<RopeScript>().hook = hitInfo.transform.gameObject;
                     throwHook();
                 }
                 else
                 {
+                    Debug.DrawLine(ray.origin, eyes.transform.right * 14, Color.green);
                     eyes.transform.Rotate(0f, 0f, 2f);
                 }
            }
            else
            {
-               eyes.transform.Rotate(0f, 0f, 2f);
+                Debug.DrawLine(ray.origin, eyes.transform.right * 14, Color.blue);
+                eyes.transform.Rotate(0f, 0f, 2f);
            }
         }
     }

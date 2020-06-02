@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class RopeScript : MonoBehaviour
 {
-    public Vector3 hookDest;
-    public Vector3 playerPos;
+    public Vector2 hookDest;
+    public Vector2 playerPos;
     public GameObject hook;
-    private float speed = 2f;
+    private float speed = 1f;
     private float segLength = 0.25f;
     public GameObject node;
     List<GameObject> nodes = new List<GameObject>();
@@ -38,7 +38,7 @@ public class RopeScript : MonoBehaviour
         hookThrower();
         renderLine();
         //player.transform.Translate(1f, 0f, 0f);
-        this.transform.Rotate(0f, 1f, 0f);
+        //this.transform.Rotate(0f, 1f, 0f);
         if (Input.GetKeyDown(KeyCode.D))
         {
             player.GetComponent<Rigidbody>().AddForce(Vector3.forward);
@@ -57,9 +57,9 @@ public class RopeScript : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, hookDest, speed);
 
-        if (this.transform.position != hookDest)
+        if ((Vector2) this.transform.position != hookDest)
         {
-            if (Vector3.Distance(playerPos, lastNode.transform.position) > segLength)
+            if (Vector2.Distance(playerPos, lastNode.transform.position) > segLength)
             {
                 createNode();
                 //playerConnected = false;
@@ -75,29 +75,29 @@ public class RopeScript : MonoBehaviour
             {
                 playerConnected = true;
                 Debug.Log("player connected");
-                while (Vector3.Distance(playerPos, lastNode.transform.position) > segLength)
+                while (Vector2.Distance(playerPos, lastNode.transform.position) > segLength)
                 {
                     createNode();
                     Debug.Log("node created in while");
                 }
-                //lastNode.GetComponent<HingeJoint>().connectedBody = player.GetComponent<Rigidbody>();
-                player.GetComponent<HingeJoint>().connectedBody = lastNode.GetComponent<Rigidbody>();
+                //lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
+                player.GetComponent<HingeJoint2D>().connectedBody = lastNode.GetComponent<Rigidbody2D>();
                 //lastNode.GetComponent<HingeJoint>().maxDistance = 0;
-                this.GetComponent<HingeJoint>().connectedBody = hook.GetComponent<Rigidbody>();
+                //this.GetComponent<HingeJoint2D>().connectedBody = hook.GetComponent<Rigidbody2D>();
             }
         }
     }
 
     private void createNode()
     {
-        Vector3 pos2Create = playerPos - lastNode.transform.position;
+        Vector2 pos2Create = playerPos - (Vector2)lastNode.transform.position;
         pos2Create.Normalize();
         pos2Create *= segLength;
-        pos2Create += lastNode.transform.position;
+        pos2Create += (Vector2) lastNode.transform.position;
         
         GameObject go = (GameObject) Instantiate(node, pos2Create, Quaternion.identity);
         go.transform.SetParent(this.transform);
-        go.GetComponent<HingeJoint>().connectedBody = lastNode.GetComponent<Rigidbody>();
+        go.GetComponent<HingeJoint2D>().connectedBody = lastNode.GetComponent<Rigidbody2D>();
         nodes.Add(go);
         lastNode = go;
     }
