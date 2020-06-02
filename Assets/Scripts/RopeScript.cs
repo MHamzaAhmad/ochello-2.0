@@ -7,7 +7,7 @@ public class RopeScript : MonoBehaviour
     public Vector3 hookDest;
     public Vector3 playerPos;
     public GameObject hook;
-    private float speed = 1f;
+    private float speed = 2f;
     private float segLength = 0.25f;
     public GameObject node;
     List<GameObject> nodes = new List<GameObject>();
@@ -37,6 +37,13 @@ public class RopeScript : MonoBehaviour
     {
         hookThrower();
         renderLine();
+        //player.transform.Translate(1f, 0f, 0f);
+        this.transform.Rotate(0f, 1f, 0f);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            player.GetComponent<Rigidbody>().AddForce(Vector3.forward);
+        }
+
         
     }
 
@@ -144,5 +151,6 @@ public class RopeScript : MonoBehaviour
         //}
 
         nodes[nodes.Count - 1].transform.position = player.transform.position;
+        this.transform.position = hookDest;
     }
 }
