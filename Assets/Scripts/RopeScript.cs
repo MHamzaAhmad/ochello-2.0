@@ -12,7 +12,7 @@ public class RopeScript : MonoBehaviour
     public GameObject node;
     List<GameObject> nodes = new List<GameObject>();
     private GameObject lastNode;
-    private bool nodeCreation = false;
+    private bool nodeCreation = true;
 
     private LineRenderer lineRenderer;
     private float lineWidth = 0.15f;
@@ -41,7 +41,15 @@ public class RopeScript : MonoBehaviour
         //this.transform.Rotate(0f, 1f, 0f);
         if (Input.GetKeyDown(KeyCode.D))
         {
-            player.GetComponent<Rigidbody>().AddForce(Vector3.forward);
+            Debug.Log("d key presssed");
+            Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+            if (rb == null)
+            {
+                Debug.LogError("player not giving rigid body");
+            }
+            else
+                Debug.Log("d: rigid body i not null");
+            player.GetComponent<Player>().littlePush();
         }
 
         
@@ -82,6 +90,7 @@ public class RopeScript : MonoBehaviour
                 }
                 //lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
                 player.GetComponent<HingeJoint2D>().connectedBody = lastNode.GetComponent<Rigidbody2D>();
+                nodeCreation = false;
                 //lastNode.GetComponent<HingeJoint>().maxDistance = 0;
                 //this.GetComponent<HingeJoint2D>().connectedBody = hook.GetComponent<Rigidbody2D>();
             }
@@ -150,7 +159,27 @@ public class RopeScript : MonoBehaviour
         //    }
         //}
 
-        nodes[nodes.Count - 1].transform.position = player.transform.position;
+        //nodes[nodes.Count - 1].transform.position = player.transform.position;
         this.transform.position = hookDest;
+    }
+
+    private void deleteNodes()
+    {
+        if (nodeCreation == false)
+        {
+            GameObject firstNode = nodes[7];
+            GameObject secondNode = nodes[13];
+            for (int i = 8; i < 13; i++)
+            {
+                Destroy(nodes[i]);
+                nodes.Remove(nodes[i]);
+            }
+            secondNode.GetComponent<HingeJoint2D>().connectedBody = firstNode.GetComponent<Rigidbody2D>();
+
+            for (int i = 8; i < nodes.Count; i++)
+            {
+                lineRenderer.SetPosition(i, nodes[i].transform.position);
+            }
+        }
     }
 }

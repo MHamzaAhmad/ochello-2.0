@@ -10,11 +10,13 @@ public class Player : MonoBehaviour
     private bool findHook = false;
     public GameObject ropeHook;
     private bool canThrowHook = false;
+    private Rigidbody2D rigidbody2d;
 
     // Start is called before the first frame update
     void Start()
     {
         ray = new Ray(eyes.transform.position, eyes.transform.right);
+        rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -77,7 +79,7 @@ public class Player : MonoBehaviour
 
     public void littlePush()
     {
-        this.GetComponent<Rigidbody>().AddForce(3f, 0f, 0f);
+        rigidbody2d.AddForce(Vector2.right * 900);
     }
 
 }
