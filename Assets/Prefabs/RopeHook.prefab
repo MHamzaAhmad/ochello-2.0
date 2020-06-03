@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 7375627417884870406}
   - component: {fileID: 5678217477337448080}
   - component: {fileID: 4748551827353094817}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RopeHook
-  m_TagString: Untagged
+  m_TagString: Rope
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a691c9c17c30a7438e12d4cb3bdcc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookDest: {x: 0.02, y: 4.43}
-  playerPos: {x: -4.56, y: 1.02}
+  hookDest: {x: -2.72, y: 4.43}
+  playerPos: {x: -6.23, y: 1.06}
   hook: {fileID: 0}
   node: {fileID: 2595816818214671928, guid: dce17d9848e045b4796d55611ac36372, type: 3}
   nodes: []

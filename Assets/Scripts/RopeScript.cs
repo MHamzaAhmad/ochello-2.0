@@ -128,20 +128,35 @@ public class RopeScript : MonoBehaviour
     {
         if (nodeCreation == false)
         {
+            int deleteNodes =0;
+            int startingNode = 2;
+            int toBeDeleted =0;
+            float totalNoOfNodes = Vector2.Distance(player.transform.position, hookDest) / segLength;
+            totalNoOfNodes = Mathf.Floor(totalNoOfNodes);
+            if (totalNoOfNodes < nodes.Count)
+            {
+                deleteNodes = nodes.Count - (int) totalNoOfNodes;
+                deleteNodes += 3;
+            }
+            else
+            {
+                deleteNodes = 2;
+            }
+            toBeDeleted = startingNode + deleteNodes + 1;
             Debug.Log("deleting nodes");
             nodeCreation = true;
-            GameObject firstNode = nodes[1];
-            GameObject secondNode = nodes[4];
+            GameObject firstNode = nodes[startingNode -1];
+            GameObject secondNode = nodes[toBeDeleted];
             firstNode.transform.name = "firstnode";
             secondNode.transform.name = "secondNode";
             secondNode.GetComponent<HingeJoint2D>().connectedBody = firstNode.GetComponent<Rigidbody2D>();
-            for (int i = 2; i < 4; i++)
+            for (int i = startingNode; i < toBeDeleted; i++)
             {
-                GameObject tempNode = nodes[2];
+                GameObject tempNode = nodes[startingNode];
                 Destroy(tempNode);
-                nodes.RemoveAt(2);
+                nodes.RemoveAt(startingNode);
             }
-            for (int i = 2; i < nodes.Count; i++)
+            for (int i = startingNode; i < nodes.Count; i++)
             {
                 while (Vector2.Distance(nodes[i - 1].transform.position, nodes[i].transform.position) > segLength)
                 {
@@ -149,15 +164,15 @@ public class RopeScript : MonoBehaviour
                     nodes[i].transform.position = Vector2.MoveTowards(nodes[i].transform.position, nodes[i -1].transform.position, nodesDeletionSpeed);
                 }
             }
-            nodes[1] = firstNode;
-            nodes[2] = secondNode;
+            nodes[startingNode -1] = firstNode;
+            nodes[startingNode] = secondNode;
             while (Vector2.Distance(nodes[nodes.Count -1].transform.position, player.transform.position) > segLength)
             {
-                Debug.Log("moving towards");
+                Debug.Log("player moving towards");
                 player.transform.position = Vector2.MoveTowards(player.transform.position, nodes[nodes.Count -1].transform.position, nodesDeletionSpeed);
             }
             lineRenderer.positionCount = nodes.Count;
-            for (int i = 2; i < nodes.Count; i++)
+            for (int i = startingNode; i < nodes.Count; i++)
             {
                 lineRenderer.SetPosition(i, nodes[i].transform.position);
             }

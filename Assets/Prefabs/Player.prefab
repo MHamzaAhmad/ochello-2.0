@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6115935973164994274}
   - component: {fileID: 1851927462}
   - component: {fileID: 1199361468}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -4.53, y: 1.06}
+  m_ConnectedAnchor: {x: -6.23, y: 1.06}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
