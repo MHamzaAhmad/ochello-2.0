@@ -1,0 +1,29 @@
+[33mcommit 5a9fafd8ecf78fea9e26673e1ea45dbab86f4dc5[m[33m ([m[1;36mHEAD[m[33m)[m
+Author: Hamza <Hamza@me.com>
+Date:   Wed Jun 3 08:00:41 2020 +0500
+
+    2d rope with hinge joints with slight development
+
+[33mcommit e2d834ba3569167157aafb416b1264407cf910ff[m
+Author: Hamza <Hamza@me.com>
+Date:   Tue Jun 2 21:28:09 2020 +0500
+
+    2d rope with hinge joints
+
+[33mcommit d273250a0407e5ca63c9d08cd8cf4780e631331b[m
+Author: Hamza <Hamza@me.com>
+Date:   Tue Jun 2 16:12:47 2020 +0500
+
+    slight development in hinge joints rope
+
+[33mcommit ac80ec0ef990ed1e8b906632724e65f6a3e48469[m
+Author: Hamza <Hamza@me.com>
+Date:   Tue Jun 2 14:58:26 2020 +0500
+
+    rope kinda with hingejoints
+
+[33mcommit 6d4e0ed5b2b32b6fa19c44a2d8f71c6965e2797b[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Hamza <Hamza@me.com>
+Date:   Mon Jun 1 20:17:36 2020 +0500
+
+     first commit with rope slightly ready, hanging like a spring
