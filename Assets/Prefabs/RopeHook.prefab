@@ -48,9 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookDest: {x: 0.02, y: 4.43}
-  playerPos: {x: -4.56, y: 1.19}
+  playerPos: {x: -4.56, y: 1.02}
   hook: {fileID: 0}
   node: {fileID: 2595816818214671928, guid: dce17d9848e045b4796d55611ac36372, type: 3}
+  nodes: []
 --- !u!120 &-4479157235819742786
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -160,8 +161,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 0.3
+  m_LinearDrag: 0.08
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

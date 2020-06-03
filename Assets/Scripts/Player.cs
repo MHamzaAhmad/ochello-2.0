@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         if (findHook)
         {
            ray = new Ray(eyes.transform.position, eyes.transform.right * 14);
-           if (Physics.Raycast(ray, out hitInfo, 100))
+           if (Physics.Raycast(ray, out hitInfo, 5))
            {
                 Debug.DrawLine(ray.origin, eyes.transform.right * 14, Color.red);
                 if (hitInfo.collider.tag == "Hook")
@@ -79,7 +79,13 @@ public class Player : MonoBehaviour
 
     public void littlePush()
     {
-        rigidbody2d.AddForce(Vector2.right * 900);
+        rigidbody2d.AddForce(Vector2.right * 200);
+    }
+
+    public void detach()
+    {
+        this.GetComponent<HingeJoint2D>().connectedBody = null;
+        this.GetComponent<HingeJoint2D>().enabled = false;
     }
 
 }
