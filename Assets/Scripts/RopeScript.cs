@@ -80,7 +80,6 @@ public class RopeScript : MonoBehaviour
             if (playerConnected == false)
             {
                 playerConnected = true;
-                Debug.Log("player connected");
                 while (Vector2.Distance(playerPos, lastNode.transform.position) > segLength)
                 {
                     createNode();
@@ -121,6 +120,10 @@ public class RopeScript : MonoBehaviour
 
     private void constraints()
     {
+        if (player.GetComponent<HingeJoint2D>().enabled == true)
+        {
+            player.transform.position = Vector2.MoveTowards(player.transform.position, player.GetComponent<HingeJoint2D>().connectedBody.transform.position, 1f);
+        }
         this.transform.position = hookDest;
     }
 
@@ -130,20 +133,20 @@ public class RopeScript : MonoBehaviour
         {
             int deleteNodes =0;
             int startingNode = 2;
-            int toBeDeleted =0;
+            int toBeDeleted = 0;
+            int defaultNodes = 1;
             float totalNoOfNodes = Vector2.Distance(player.transform.position, hookDest) / segLength;
             totalNoOfNodes = Mathf.Floor(totalNoOfNodes);
             if (totalNoOfNodes < nodes.Count)
             {
                 deleteNodes = nodes.Count - (int) totalNoOfNodes;
-                deleteNodes += 3;
+                deleteNodes += defaultNodes;
             }
             else
             {
-                deleteNodes = 2;
+                deleteNodes = defaultNodes;
             }
             toBeDeleted = startingNode + deleteNodes + 1;
-            Debug.Log("deleting nodes");
             nodeCreation = true;
             GameObject firstNode = nodes[startingNode -1];
             GameObject secondNode = nodes[toBeDeleted];

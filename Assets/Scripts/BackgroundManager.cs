@@ -7,8 +7,11 @@ public class BackgroundManager : MonoBehaviour
     public GameObject platformS;
     public GameObject hookS;
 
-    private float platsMaxDistance = 8f;
-    private float hookMaxHeight = 7f;
+    private float platsMaxDistance = 6f;
+    private float platsMinDistance = 5f;
+    private float platsDistanceNow = 0;
+    private float hookMaxHeight = 6f;
+    private float hooksMaxDistance = 6.5f;
     private int noOFPlats = 3;
     private int noOFHooks = 3;
 
@@ -30,20 +33,21 @@ public class BackgroundManager : MonoBehaviour
     {
         while(true)
         {
-            Vector2 pos2Create = new Vector2(prevPlat.transform.position.x + platsMaxDistance, prevPlat.transform.position.y);
+            platsDistanceNow = Random.Range(platsMinDistance, platsMaxDistance);
+            Vector2 pos2Create = new Vector2(prevPlat.transform.position.x + platsDistanceNow, prevPlat.transform.position.y);
             GameObject go = (GameObject) Instantiate(platformS,pos2Create , Quaternion.identity);
             go.transform.SetParent(this.transform);
             noOFPlats++;
             go.transform.name = "Platform " + noOFPlats;
             prevPlat = go;
 
-            Vector2 pos2CreateHooks = new Vector2(preHook.transform.position.x + hookMaxHeight, preHook.transform.position.y);
-            GameObject go1 = (GameObject)Instantiate(hookS, pos2CreateHooks, Quaternion.identity);
-            go1.transform.SetParent(this.transform);
-            noOFHooks++;
-            go.transform.name = "Hook " + noOFHooks;
-            preHook = go1;
-            yield return new WaitForSeconds(2f);
+            //Vector2 pos2CreateHooks = new Vector2(preHook.transform.position.x + hooksMaxDistance, preHook.transform.position.y);
+            //GameObject go1 = (GameObject)Instantiate(hookS, pos2CreateHooks, Quaternion.identity);
+            //go1.transform.SetParent(this.transform);
+            //noOFHooks++;
+            //go.transform.name = "Hook " + noOFHooks;
+            //preHook = go1;
+            yield return new WaitForSeconds(3f);
         }
     }
 }

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private string currPlatformName;
     private Quaternion eyesTPose;
     private GameObject prevHook;
+    public UIManager uiManager;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
         if (findHook)
         {
            ray = new Ray(eyes.transform.position, eyes.transform.right * 14);
-           if (Physics.Raycast(ray, out hitInfo, 7))
+           if (Physics.Raycast(ray, out hitInfo, 5.8f))
            {
                 Debug.DrawLine(ray.origin, eyes.transform.right * 14, Color.red);
                 if (hitInfo.collider.tag == "Hook")
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour
             {
                 currPlatformName = collision.transform.name;
                 canThrowHook = false;
+                uiManager.updateScores();
                 this.GetComponent<HingeJoint2D>().enabled = true;
             }
             else if(currPlatformName == null)
