@@ -35,6 +35,7 @@ public class RopeScript : MonoBehaviour
         {
             player = GameObject.Find("Player");
         }
+        playerPos = player.transform.position;
     }
 
     // Update is called once per frame
