@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using UnityEditorInternal;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,6 +17,13 @@ public class Player : MonoBehaviour
     private GameObject prevHook;
     public UIManager uiManager;
 
+    private bool first = true;
+    private bool second = false;
+    private GameObject currHook;
+    private bool canRotateEyes = true;
+    Ray newRay;
+    RaycastHit newHit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,13 +35,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        startFindingHook();
-        hookFindingRoutine();
-        if (Input.GetMouseButtonDown(1))
-        {
-            this.GetComponent<Rigidbody>().AddForce(4f, 0f, 0f);
-        }
+        //startFindingHook();
+        //hookFindingRoutine();
 
+        rotateEyes();
+        hookMaker();
     }
 
     private void hookFindingRoutine()
@@ -113,7 +119,7 @@ public class Player : MonoBehaviour
     private void throwHook()
     {
         if(canThrowHook == false)
-        Instantiate(ropeHook, this.transform.position, Quaternion.identity);
+       currHook = (GameObject) Instantiate(ropeHook, eyes.transform.position, Quaternion.identity);
 
         canThrowHook = true;
     }
@@ -129,4 +135,67 @@ public class Player : MonoBehaviour
         this.GetComponent<HingeJoint2D>().enabled = false;
     }
 
+    private void rotateEyes()
+    {
+        if (canRotateEyes == true)
+        {
+            
+            if (first == true)
+            {
+                eyes.transform.rotation = Quaternion.Lerp(eyes.transform.rotation,
+                Quaternion.Euler(0f, 0f, 62f), Time.deltaTime * 10f);
+                if (eyes.transform.rotation == Quaternion.Euler(0f, 0f, 62f))
+                {
+                    second = true;
+                    first = false;
+                }
+            }
+            else if (second == true)
+            {
+                eyes.transform.rotation = Quaternion.Lerp(eyes.transform.rotation,
+                Quaternion.Euler(0f, 0f, -36f), Time.deltaTime * 10f);
+                if (eyes.transform.rotation == Quaternion.Euler(0f, 0f, -36f))
+                {
+                    second = false;
+                    first = true;
+                }
+            }
+        }
+        Debug.DrawLine(eyes.transform.position, eyes.transform.right * 30, Color.cyan);
+        newRay = new Ray(eyes.transform.position, eyes.transform.right * 20);
+
+    }
+
+    private void hookMaker()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            canRotateEyes = false;
+            if (canThrowHook == false)
+                throwHook();
+            currHook.GetComponent<RopeScript>().moving = true;
+
+
+            Vector2 direction;
+            if (Physics.Raycast(newRay, out newHit, 10))
+            {
+                Debug.DrawRay(newRay.origin, newRay.direction, Color.grey);
+                direction = newRay.direction;
+            }
+            else
+            {
+                direction = newRay.direction;
+                Debug.DrawRay(newRay.origin, newRay.direction, Color.blue);
+            }
+            //Vector3 direction = eyes.transform.right * 40;
+            direction.Normalize();
+            currHook.transform.Translate(direction * 5 * Time.deltaTime);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            currHook.GetComponent<RopeScript>().moving = false;
+            currHook.GetComponent<Rigidbody2D>().isKinematic = false;
+            
+        }
+    }
 }

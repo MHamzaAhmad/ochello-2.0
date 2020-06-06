@@ -227,6 +227,7 @@ MonoBehaviour:
   eyes: {fileID: 6115935973164994279}
   ropeHook: {fileID: 3156352356488497090, guid: b6367d53a4aca5a4082a229f5dc92910,
     type: 3}
+  uiManager: {fileID: 0}
 --- !u!50 &320639322890446794
 Rigidbody2D:
   serializedVersion: 4
@@ -263,7 +264,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -6.23, y: 1.06}
+  m_ConnectedAnchor: {x: -4.39, y: 1.69}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RopeScript : MonoBehaviour
@@ -21,6 +22,9 @@ public class RopeScript : MonoBehaviour
 
     private GameObject player;
     private bool playerConnected = false;
+
+    public bool moving = false;
+    public GameObject eyes;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,26 +60,28 @@ public class RopeScript : MonoBehaviour
             player.GetComponent<Player>().detach();
         }
 
-        
+
     }
 
     private void FixedUpdate()
     {
-        constraints();
+        //constraints();
     }
 
     private void hookThrower()
     {
-        transform.position = Vector3.MoveTowards(transform.position, hookDest, speed);
+        //if(moving == true)
+        //transform.position = Vector3.MoveTowards(transform.position, eyes.transform.right * 30, speed * Time.deltaTime);
+        hookDest = transform.position;
 
-        if ((Vector2) this.transform.position != hookDest)
+        if (moving == true)
         {
             if (Vector2.Distance(playerPos, lastNode.transform.position) > segLength)
             {
                 createNode();
             }
         }
-        else 
+        else if(moving == false)
         {
             if (playerConnected == false)
             {
@@ -88,6 +94,10 @@ public class RopeScript : MonoBehaviour
                 player.GetComponent<HingeJoint2D>().connectedBody = lastNode.GetComponent<Rigidbody2D>();
                 nodeCreation = false;
                 deleteNodes();
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    nodes[i].GetComponent<Rigidbody2D>().gravityScale = 1;
+                }
             }
         }
     }
@@ -134,7 +144,7 @@ public class RopeScript : MonoBehaviour
             int deleteNodes =0;
             int startingNode = 2;
             int toBeDeleted = 0;
-            int defaultNodes = 1;
+            int defaultNodes = 2;
             float totalNoOfNodes = Vector2.Distance(player.transform.position, hookDest) / segLength;
             totalNoOfNodes = Mathf.Floor(totalNoOfNodes);
             if (totalNoOfNodes < nodes.Count)

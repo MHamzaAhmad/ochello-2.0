@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7375627417884870406}
   - component: {fileID: 5678217477337448080}
   - component: {fileID: 4748551827353094817}
+  - component: {fileID: -3366855682951025641}
+  - component: {fileID: 6362457785506073151}
   m_Layer: 11
   m_Name: RopeHook
   m_TagString: Rope
@@ -30,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3156352356488497090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,11 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a691c9c17c30a7438e12d4cb3bdcc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookDest: {x: -2.72, y: 4.43}
+  hookDest: {x: 0, y: 0}
   playerPos: {x: -6.23, y: 1.06}
   hook: {fileID: 0}
   node: {fileID: 2595816818214671928, guid: dce17d9848e045b4796d55611ac36372, type: 3}
   nodes: []
+  moving: 0
+  eyes: {fileID: 4607987121917024382, guid: f92ae37d88a9dfd4495ed82b10ae71cc, type: 3}
 --- !u!120 &-4479157235819742786
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -157,7 +161,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3156352356488497090}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -210,3 +214,50 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!23 &-3366855682951025641
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3156352356488497090}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 817aa12eff134f04d9bc514b51155574, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &6362457785506073151
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3156352356488497090}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
